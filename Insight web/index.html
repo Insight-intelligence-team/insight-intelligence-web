@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insight Intelligence | Inteligencia financiera para decisiones estratégicas</title>
+  <meta name="description" content="Ayudamos a empresas a transformar información financiera en decisiones estratégicas mediante análisis, dashboards, KPIs, planeación y automatización." />
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --dark: #101828;
+      --muted: #667085;
+      --primary: #0b5fff;
+      --primary-dark: #003fb8;
+      --accent: #0ea5a4;
+      --card: #ffffff;
+      --border: #e4e7ec;
+      --soft: #eef4ff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Inter, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.03em;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--dark);
+    }
+
+    .hero {
+      padding: 88px 0 64px;
+      background:
+        radial-gradient(circle at top right, rgba(14, 165, 164, 0.16), transparent 28%),
+        radial-gradient(circle at top left, rgba(11, 95, 255, 0.14), transparent 35%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      background: var(--soft);
+      color: var(--primary);
+      border: 1px solid #d6e4ff;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      line-height: 1.02;
+      letter-spacing: -0.06em;
+      margin-bottom: 24px;
+    }
+
+    .hero p {
+      font-size: 1.18rem;
+      color: var(--muted);
+      max-width: 670px;
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .hero-note {
+      margin-top: 22px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .dashboard-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 26px;
+      box-shadow: 0 24px 60px rgba(16, 24, 40, 0.08);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .metric {
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .metric small {
+      color: var(--muted);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .metric strong {
+      font-size: 1.45rem;
+    }
+
+    .bar-box {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      background: #fff;
+    }
+
+    .bar {
+      height: 10px;
+      background: #e4e7ec;
+      border-radius: 99px;
+      overflow: hidden;
+      margin: 14px 0;
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      width: 72%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: inherit;
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    .section-title {
+      max-width: 760px;
+      margin-bottom: 38px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2rem, 3vw, 3rem);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 14px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 26px;
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--muted);
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: var(--soft);
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .list-item {
+      display: flex;
+      gap: 14px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .check {
+      color: var(--accent);
+      font-weight: 900;
+    }
+
+    .process {
+      counter-reset: step;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+      position: relative;
+    }
+
+    .step:before {
+      counter-increment: step;
+      content: "0" counter(step);
+      display: inline-block;
+      color: var(--primary);
+      font-weight: 900;
+      margin-bottom: 24px;
+    }
+
+    .cta {
+      background: var(--dark);
+      color: white;
+      border-radius: 34px;
+      padding: 52px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .cta h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.08;
+      letter-spacing: -0.05em;
+      margin-bottom: 14px;
+    }
+
+    .cta p {
+      color: #d0d5dd;
+      max-width: 720px;
+    }
+
+    footer {
+      padding: 34px 0;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      background: white;
+      font-size: 0.95rem;
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .split,
+      .cta {
+        grid-template-columns: 1fr;
+      }
+
+      .cards,
+      .process {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .cards,
+      .process,
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 58px;
+      }
+
+      .cta {
+        padding: 34px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo">Insight <span>Intelligence</span></a>
+      <nav class="nav-links">
+        <a href="#servicios">Servicios</a>
+        <a href="#problemas">Problemas</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#contacto" class="btn btn-primary">Agenda una llamada</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Inteligencia financiera para empresas en crecimiento</div>
+          <h1>Transformamos información financiera en decisiones estratégicas.</h1>
+          <p>
+            Ayudamos a dueños, directores y equipos administrativos a entender sus números,
+            medir lo que importa y tomar decisiones con información clara, confiable y accionable.
+          </p>
+          <div class="hero-actions">
+            <a href="#contacto" class="btn btn-primary">Agenda una llamada inicial</a>
+            <a href="#servicios" class="btn btn-secondary">Ver servicios</a>
+          </div>
+          <div class="hero-note">
+            Análisis financiero · Dashboards ejecutivos · KPIs · Planeación · Automatización
+          </div>
+        </div>
+
+        <div class="dashboard-card" aria-label="Ejemplo de tablero financiero">
+          <div class="metric-grid">
+            <div class="metric">
+              <small>Margen bruto</small>
+              <strong>38.4%</strong>
+            </div>
+            <div class="metric">
+              <small>Flujo operativo</small>
+              <strong>+22%</strong>
+            </div>
+            <div class="metric">
+              <small>Gastos clave</small>
+              <strong>4 áreas</strong>
+            </div>
+            <div class="metric">
+              <small>Rentabilidad</small>
+              <strong>12.8%</strong>
+            </div>
+          </div>
+          <div class="bar-box">
+            <strong>Visibilidad financiera mensual</strong>
+            <div class="bar"><span></span></div>
+            <p style="color: var(--muted); font-size: 0.95rem;">
+              Convertimos datos dispersos en reportes ejecutivos para entender desempeño,
+              riesgos y oportunidades.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="problemas">
+      <div class="container">
+        <div class="section-title">
+          <h2>Cuando la información llega tarde, las decisiones cuestan más.</h2>
+          <p>
+            Muchas empresas tienen datos, reportes contables o archivos de Excel, pero no siempre tienen claridad
+            para decidir con rapidez y confianza.
+          </p>
+        </div>
+
+        <div class="cards">
+          <div class="card">
+            <div class="icon">01</div>
+            <h3>No hay visibilidad real</h3>
+            <p>No sabes con precisión qué productos, clientes, áreas o gastos están impulsando o frenando la rentabilidad.</p>
+          </div>
+          <div class="card">
+            <div class="icon">02</div>
+            <h3>Los reportes llegan tarde</h3>
+            <p>La información existe, pero no está lista cuando la dirección necesita tomar decisiones importantes.</p>
+          </div>
+          <div class="card">
+            <div class="icon">03</div>
+            <h3>Falta estructura financiera</h3>
+            <p>Hay operación, ventas y contabilidad, pero no indicadores gerenciales que conecten los números con la estrategia.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios">
+      <div class="container split">
+        <div class="section-title">
+          <h2>Qué hacemos por tu empresa</h2>
+          <p>
+            Diseñamos sistemas de información financiera para que la dirección tenga una lectura clara del negocio:
+            qué está pasando, por qué está pasando y qué conviene hacer.
+          </p>
+        </div>
+
+        <div class="list">
+          <div class="list-item">
+            <div class="check">✓</div>
+            <div>
+              <h3>Análisis financiero gerencial</h3>
+              <p>Interpretamos ingresos, costos, gastos, márgenes, flujo y rentabilidad para convertirlos en conclusiones útiles.</p>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="check">✓</div>
+            <div>
+              <h3>Dashboards y reportes ejecutivos</h3>
+              <p>Creamos tableros claros para dar seguimiento a KPIs, desempeño mensual y áreas críticas del negocio.</p>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="check">✓</div>
+            <div>
+              <h3>Planeación y escenarios</h3>
+              <p>Construimos modelos para presupuestos, proyecciones, sensibilidad, crecimiento y toma de decisiones estratégicas.</p>
+            </div>
+          </div>
+          <div class="list-item">
+            <div class="check">✓</div>
+            <div>
+              <h3>Automatización e inteligencia de negocio</h3>
+              <p>Reducimos trabajo manual y ordenamos la información para que el equipo directivo tenga datos confiables y oportunos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="proceso">
+      <div class="container">
+        <div class="section-title">
+          <h2>Un proceso simple para obtener claridad financiera</h2>
+          <p>Empezamos con lo que ya tienes y construimos una solución útil, accionable y adaptada a tu operación.</p>
+        </div>
+
+        <div class="process">
+          <div class="step">
+            <h3>Diagnóstico</h3>
+            <p>Entendemos tu negocio, tus fuentes de información y las decisiones que necesitas tomar.</p>
+          </div>
+          <div class="step">
+            <h3>Estructura</h3>
+            <p>Ordenamos datos, indicadores y reportes para crear una visión financiera gerencial.</p>
+          </div>
+          <div class="step">
+            <h3>Implementación</h3>
+            <p>Diseñamos dashboards, reportes o modelos financieros listos para usar.</p>
+          </div>
+          <div class="step">
+            <h3>Acompañamiento</h3>
+            <p>Te ayudamos a interpretar resultados, detectar riesgos y tomar mejores decisiones.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="container">
+        <div class="cta">
+          <div>
+            <h2>Convirtamos tus números en decisiones de negocio.</h2>
+            <p>
+              Agenda una llamada inicial para revisar tu situación actual y detectar oportunidades de mejora
+              en información financiera, reportes, KPIs o automatización.
+            </p>
+          </div>
+          <a href="mailto:contacto@insightintelligence.com.mx" class="btn btn-primary">contacto@insightintelligence.com.mx</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>© 2026 Insight Intelligence. Todos los derechos reservados.</div>
+      <div>Inteligencia financiera para decisiones estratégicas.</div>
+    </div>
+  </footer>
+</body>
+</html>
